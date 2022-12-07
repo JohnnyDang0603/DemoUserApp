@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# time_sheets_controller
 class TimesheetsController < ApplicationController
   def index
     @timesheets = Timesheet.all
@@ -38,10 +35,9 @@ class TimesheetsController < ApplicationController
     @timesheet = Timesheet.find(params[:id])
 
     if @timesheet.update_attributes(timesheet_params)
-      redirect_to action: 'show', id: @timesheet
+      redirect_to @timesheet
     else
-      @users = User.all
-      render action: 'edit'
+      render 'edit'
     end
   end
 

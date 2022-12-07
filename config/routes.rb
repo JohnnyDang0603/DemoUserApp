@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # resources :timesheets
   root to: 'timesheets#index'
-  resources :timesheets, only: %i[index new create destroy edit]
+  resources :timesheets
 end

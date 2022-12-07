@@ -20,23 +20,23 @@
          <th></th>
       </tr>
    </thead>
-   
+
    <tbody>
       <% @timesheets.each do |timesheet| %>
-         
+
          <tr>
             <td><%= timesheet.user_id %></td>
             <td><%= timesheet.check_in.strftime("%H : %M")%></td>
             <td><%= timesheet.check_out.strftime("%H : %M")%></td>
-            <td><%= timesheet.day%></td>
+            <td><%= timesheet.day.strftime("%d - %m - %Y")%></td>
             <td>
               <div class="btn-group"><%= button_to "Delete",  timesheet, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete ?" %>
-                <%= link_to "Update",  timesheet, method: :edit,:id => timesheet.id, class: "btn btn-success" %></div>
+                <%= link_to "Update",edit_timesheet_path(timesheet), class: "btn btn-success" %></div>
             </td>
             <td></td>
 
          </tr>
       <% end %>
    </tbody>
-   
+
 </table>
