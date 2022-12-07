@@ -1,3 +1,4 @@
+
 class CreateTimesheets < ActiveRecord::Migration[7.0]
   def change
     create_table :timesheets do |t|
@@ -5,7 +6,7 @@ class CreateTimesheets < ActiveRecord::Migration[7.0]
       t.time :check_out
       t.datetime :day
       t.belongs_to :user
-      
+
       t.timestamps
     end
   end
