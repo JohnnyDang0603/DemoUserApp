@@ -1,0 +1,1 @@
+list=timesheets.where(users_id:users_id , datecheckin: datecheckin , :check_in=>check_in)
