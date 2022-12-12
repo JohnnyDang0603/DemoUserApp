@@ -1,3 +1,4 @@
+<div class="container-sm">
 <% if !flash[:notice].blank? %>
    <div class = "alert alert-info">
       <%= flash[:notice] %>
@@ -5,13 +6,14 @@
 <% end %>
 
 <br />
+<%= link_to "Back to user", users_path, class: "btn btn-outline-primary" %>
 
-<%= link_to "New timesheet", new_timesheet_path, class: "btn btn-primary" %>
+<%= link_to "New timesheet", new_timesheet_path, class: "btn btn-outline-success" %>
 <br />
 <br />
 
 <table class = "table table-bordered table-striped">
-   <thead>.
+   <thead>
       <tr>
          <th>User id</th>
          <th>Check in</th>
@@ -23,20 +25,19 @@
 
    <tbody>
       <% @timesheets.each do |timesheet| %>
-
          <tr>
             <td><%= timesheet.user_id %></td>
-            <td><%= timesheet.check_in.strftime("%H : %M")%></td>
-            <td><%= timesheet.check_out.strftime("%H : %M")%></td>
-            <td><%= timesheet.day.strftime("%d - %m - %Y")%></td>
+            <td><%= format_time_24h(timesheet.check_in)%></td>
+            <td><%= format_time_24h(timesheet.check_out)%></td>
+            <td><%= format_date_normal(timesheet.day)%></td>
             <td>
-              <div class="btn-group"><%= button_to "Delete",  timesheet, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete ?" %>
-                <%= link_to "Update",edit_timesheet_path(timesheet), class: "btn btn-success" %></div>
+              <div class="btn-group"><%= button_to "Delete",  timesheet, method: :delete, class: "btn btn-outline-danger",  form: { data: { turbo_confirm: "Are you sure?" } } %>
+                <%= link_to "Update", edit_timesheet_path(timesheet), class: "btn btn-outline-primary" %></div>
             </td>
-            <td></td>
-
          </tr>
       <% end %>
    </tbody>
 
 </table>
+
+</div>

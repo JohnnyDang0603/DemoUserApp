@@ -1,0 +1,12 @@
+<div class="container-sm">
+<h1>User <%=@user.id%></h1>
+
+<p>
+   <strong>Username: </strong><%= @user.username %><br />
+   <strong>Birthday :</strong> <%= @user.birthday %><br />
+   <strong>Age :</strong> <%= @user.age %><br />
+   <strong>Email :</strong> <%= @user.email %><br />
+</p>
+
+<%=link_to "Back to list", users_path,class:'btn btn-outline-success'%>
+</div>

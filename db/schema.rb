@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,32 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_221_207_053_420) do
-  create_table 'table_products', force: :cascade do |t|
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+ActiveRecord::Schema.define(version: 2022_12_08_043700) do
+
+  create_table "table_products", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table 'timesheets', force: :cascade do |t|
-    t.time 'check_in'
-    t.time 'check_out'
-    t.date 'day'
-    t.integer 'user_id'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['user_id'], name: 'index_timesheets_on_user_id'
+  create_table "timesheets", force: :cascade do |t|
+    t.time "check_in"
+    t.time "check_out"
+    t.date "day"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_timesheets_on_user_id"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'username'
-    t.integer 'age', limit: 2
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.string 'gender'
-    t.string 'adress'
-    t.date 'date'
-    t.string 'email'
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.integer "age", limit: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "gender"
+    t.string "address"
+    t.date "birthday"
+    t.string "email"
   end
 
-  add_foreign_key 'timesheets', 'users'
+  add_foreign_key "timesheets", "users"
 end

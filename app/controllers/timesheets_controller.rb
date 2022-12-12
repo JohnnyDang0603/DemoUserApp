@@ -1,6 +1,13 @@
 class TimesheetsController < ApplicationController
+  before_action :set_timesheet, only: %i[show update destroy edit]
+
   def index
-    @timesheets = Timesheet.all
+    @timesheets =
+      if params[:user_id].blank?
+        Timesheet.all
+      else
+        Timesheet.where(user_id: params[:user_id])
+      end
   end
 
   def new
@@ -10,40 +17,40 @@ class TimesheetsController < ApplicationController
   def create
     @timesheet = Timesheet.new(timesheet_params)
     if @timesheet.save
-      redirect_to timesheets_path, notice: 'the timesheet has been added'
+      redirect_to timesheets_path, notice: 'The timesheet has been added'
     else
-      flash[:errors] = @timesheet.errors.full_messages.join(' ')
-      render 'new', status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # private
-  def timesheet_params
-    params.require(:timesheet).permit(:user_id, :check_in, :check_out, :day)
+  def show
+    @timesheet = Timesheet.find(params[:id])
   end
 
-  # def show
-  #     @timesheet=Timesheet.find(params[:id])
-  # end
-
   def edit
-    @timesheet = Timesheet.find(params[:id])
-    @users = User.all
+
   end
 
   def update
-    @timesheet = Timesheet.find(params[:id])
-
-    if @timesheet.update_attributes(timesheet_params)
-      redirect_to @timesheet
+    if @timesheet.update(timesheet_params)
+      redirect_to timesheet_path(@timesheet)
     else
-      render 'edit'
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @timesheet = Timesheet.find(params[:id])
     @timesheet.destroy
     redirect_to timesheets_path, notice: 'The timesheet has been deleted'
+  end
+
+  private
+
+  def set_timesheet
+    @timesheet = Timesheet.find(params[:id])
+  end
+
+  def timesheet_params
+    params.require(:timesheet).permit(:user_id, :check_in, :check_out, :day)
   end
 end

@@ -1,4 +1,6 @@
-<h1>Edit Time Sheet For User <%=@timesheet.user_id%></h1>
+<div class="container-sm">
+<h1>Edit Time Sheet For User <%=@timesheet.user.username%></h1>
+
  <% if @timesheet.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(@timesheet.errors.count, "error") %></h2>
@@ -9,22 +11,25 @@
       </ul>
     </div>
   <% end %>
-<%= form_with model: @timesheet,url: edit_timesheet_path, local: true do |form| %>
+
+<%= form_with model: @timesheet,url: timesheet_path(@timesheet), local: true do |form| %>
   <div class="form-group">
     <%= form.label :check_in, style: "display: block" %>
-    <%= form.time_field :check_in,value: @timesheet.check_in.strftime("%H:%M"), :format=>"%H:%M",class:"form-control" %>
+    <%= form.time_field :check_in, value: @timesheet.check_in, format: "%H:%M",class:"form-control" %>
   </div>
   <div class="form-group">
     <%= form.label :check_out, style: "display: block" %>
-    <%= form.time_field :check_out,value: @timesheet.check_out.strftime("%H:%M") ,:format=>"%H:%M",class:'form-control'%>
+    <%= form.time_field :check_out, value: format_time_24h(@timesheet.check_out), format: "%H:%M",class:'form-control'%>
   </div>
   <div class="form-group">
     <%= form.label :day, style: "display: block" %>
-    <%= form.date_field :day,:format=>"%d-%m-%Y",class:'form-control' %>
+    <%= form.date_field :day, value: @timesheet.day, class:'form-control' %>
   </div>
   <div class="actions">
-    <%= form.submit "Save",class: 'btn btn-primary' %>
-    <%=link_to "Back", timesheets_path,class:'btn btn-success'%>
+    <%= form.submit "Save",class: 'btn btn-outline-primary' %>
+    <%=link_to "Back", timesheets_path,class:'btn btn-outline-success'%>
   </div>
 
 <% end %>
+
+</div>

@@ -1,34 +1,47 @@
+<div class="container-sm">
 
-
-
+<%=link_to "Go to Timesheet",timesheets_path,class: "btn btn-outline-primary" %>
+<%=link_to "New User",new_user_path,class: "btn btn-outline-success" %>
 
 <table class = "table table-bordered table-striped">
-   <thead>.
+   <thead>
       <tr>
          <th>User id</th>
          <th>Username</th>
+         <th>Gender</th>
          <th>Birth Day</th>
+         <th>Age</th>
          <th>Email</th>
+         <th>Address</th>
          <th></th>
       </tr>
    </thead>
-   
+
    <tbody>
-      <% @timesheets.each do |timesheet| %>
-         
+      <% @users.each do |user| %>
+
          <tr>
-            <td><%= timesheet.user_id %></td>
-            <td><%= timesheet.check_in.strftime("%H : %M")%></td>
-            <td><%= timesheet.check_out.strftime("%H : %M")%></td>
-            <td><%= timesheet.day%></td>
+            <td><%= user.id %></td>
+            <td><%= user.username%></td>
+            <td><%= user.gender%></td>
+            <td><%= format_date_normal(user.birthday)%></td>
+            <td><%=user.age%></td>
+            <td><%= user.email%></td>
+            <td><%= user.address%></td>
             <td>
-              <div class="btn-group"><%= button_to "Delete",  timesheet, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete ?" %>
-                <%= link_to "Update",  timesheet, method: :edit,:id => timesheet.id, class: "btn btn-success" %></div>
+              <div class="btn-group">
+                  <%= button_to "Delete",  user, method: :delete, class: "btn btn-outline-danger",  form: { data: { turbo_confirm: "Are you sure?" } }%>
+                  <%= link_to 'Update', edit_user_path(user), class: "btn btn-outline-primary" %>
+                  <%= link_to 'timesheets', user_timesheets_path(user), class: "btn btn-outline-warning" %>
+               </div>
             </td>
-            <td></td>
 
          </tr>
       <% end %>
    </tbody>
-   
+
 </table>
+
+
+
+</div>
